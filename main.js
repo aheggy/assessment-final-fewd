@@ -14,7 +14,9 @@ const button = document.getElementById("submit")
 
 const commentList = document.getElementById("reviews")
 
+const restReviews = document.getElementById("reset-reviews")
 
+const showPeopleButton = document.getElementById("show-people")
 
 function run() {
  // Add code you want to run on page load here
@@ -86,6 +88,32 @@ button.addEventListener("click", event => {
     } else {
         alert("Please select a movie first.")
     }
+})
+
+restReviews.addEventListener("click", event => {
+    commentList.innerHTML =""
+})
+
+showPeopleButton.addEventListener("click", event => {
+    const peopleList = document.getElementById("names")
+    peopleList.innerHTML = ""
+
+    console.log(selecteedMovie)
+
+    selecteedMovie.people.forEach( element => {
+        let list = document.createElement("li")
+        console.log(selecteedMovie.people.name)
+        fetch(`https://resource-ghibli-api.onrender.com${element}`)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response.name)
+            list.innerText = response.name
+            peopleList.append(list)
+    })
+    .catch(err => console.error(err));
+
+    });
+    showPeople.append(peopleList)
 })
 
 

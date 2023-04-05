@@ -15,28 +15,34 @@ header {
     background-color: skyblue;
     height: auto;
 
-  }
+}
 
 
 
   
-  img {
+img {
     padding-top: 0;
     height: 150px;
     float: left;
-  }
-  header h1{
+}
+
+header h1{
     display: inline;
     text-align: right;
 
 
-  }
+}
 
-  @media (max-width: 500px) {
+
+ol {
+    text-align: left;
+
+}
+@media (max-width: 500px) {
     #reviews {
       display: none;
     }
-  }
+}
   
  
 
