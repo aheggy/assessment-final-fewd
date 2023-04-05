@@ -6,8 +6,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+}
 
+input, textarea{
+    font-family: 'Times New Roman', Times, serif;
 }
 
 
@@ -17,40 +19,33 @@ header {
     grid-template-columns: auto 1fr;
     background-color: skyblue;
     height: 150px;
-
 }
 
 main {
     width: 75%;    
-    border: 1px black solid;
 }
 
 form label{
     display: block;
 }
 
-
   
 img {
     padding-top: 0;
     height: 150px;
     float: left;
-    border: 1px solid red;
 }
 
 header h1{
     display: inline;
     text-align: right;
-    border: 1px solid black;
-
-
 }
-
 
 ol {
     text-align: left;
 
 }
+
 @media (max-width: 500px) {
     #reviews {
       display: none;
