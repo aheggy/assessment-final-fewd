@@ -10,7 +10,7 @@ const detailContainer = document.getElementById("display-info")
 
 const commentInput = document.getElementById("review")
 
-const button = document.getElementById("submit")
+const form = document.querySelector("form")
 
 const commentList = document.getElementById("reviews")
 
@@ -41,7 +41,7 @@ let populateFormDropdown = movies => {
     
 }
 //detect any change in the drop menu and update the description 
-let selecteedMovie = null
+let selectedMovie = ""
 movieSelector.addEventListener("change", (event) => {
     console.log(event.target.value)
     let movieId = event.target.value
@@ -50,7 +50,7 @@ movieSelector.addEventListener("change", (event) => {
     fetch(`https://resource-ghibli-api.onrender.com/films/${movieId}`)
     .then(response => response.json())
     .then(response => {
-        selecteedMovie = response
+        selectedMovie = response
         updateMovieSelected(response)
     })
     .catch(err => console.error(err));
@@ -78,16 +78,18 @@ function updateMovieSelected(movie) {
     detailContainer.append(movieDescription)
 
 }
-button.addEventListener("click", event => {
+form.addEventListener("submit", event => {
     event.preventDefault()
-    if (selecteedMovie){
+    if (selectedMovie !== ""){
         let newComment = document.createElement("li")
-        newComment.innerHTML += `<strong>${selecteedMovie.title}</strong>` + " -- "
+        newComment.innerHTML += `<strong>${selectedMovie.title}</strong> -- `
         newComment.innerHTML += commentInput.value
         commentList.append(newComment)
     } else {
         alert("Please select a movie first.")
     }
+    
+    commentInput.value = ""
 })
 
 restReviews.addEventListener("click", event => {
@@ -98,11 +100,11 @@ showPeopleButton.addEventListener("click", event => {
     const peopleList = document.getElementById("names")
     peopleList.innerHTML = ""
 
-    console.log(selecteedMovie)
+    console.log(selectedMovie)
 
-    selecteedMovie.people.forEach( element => {
+    selectedMovie.people.forEach( element => {
         let list = document.createElement("li")
-        console.log(selecteedMovie.people.name)
+        console.log(selectedMovie.people.name)
         fetch(`https://resource-ghibli-api.onrender.com${element}`)
         .then(response => response.json())
         .then(response => {
@@ -113,10 +115,10 @@ showPeopleButton.addEventListener("click", event => {
     .catch(err => console.error(err));
 
     });
-    showPeople.append(peopleList)
+   
 })
 
-
+selectedMovie = ""
 
 }
 
