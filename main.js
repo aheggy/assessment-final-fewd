@@ -8,6 +8,12 @@
 
 function run() {
  // Add code you want to run on page load here
+ fetch(`https://resource-ghibli-api.onrender.com/films`)
+.then(response => response.json())
+.then(response => {
+    populateFormDropdown(response)
+})
+.catch(err => console.error(err));
 }
 
 // This function will "pause" the functionality expected on load long enough to allow Cypress to fully load
