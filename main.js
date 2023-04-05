@@ -78,10 +78,14 @@ function updateMovieSelected(movie) {
 }
 button.addEventListener("click", event => {
     event.preventDefault()
-    let newComment = document.createElement("li")
-    newComment.innerHTML += `<strong>${selecteedMovie.title}</strong>` + " -- "
-    newComment.innerHTML += commentInput.value
-    commentList.append(newComment)
+    if (selecteedMovie){
+        let newComment = document.createElement("li")
+        newComment.innerHTML += `<strong>${selecteedMovie.title}</strong>` + " -- "
+        newComment.innerHTML += commentInput.value
+        commentList.append(newComment)
+    } else {
+        alert("Please select a movie first.")
+    }
 })
 
 
