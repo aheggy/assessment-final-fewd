@@ -107,13 +107,15 @@ showPeopleButton.addEventListener("click", event => {
     console.log(selectedMovie)
 
     selectedMovie.people.forEach( element => {
-        let list = document.createElement("li")
         console.log(element)
         fetch(`${BASE_URL}${element}`)
         .then(response => response.json())
         .then(response => {
-            list.innerText = response.name
-            peopleList.append(list)
+            if (response.name){
+                let list = document.createElement("li")
+                list.innerText = response.name
+                peopleList.append(list)
+            }
     })
     .catch(err => console.error(err));
 
