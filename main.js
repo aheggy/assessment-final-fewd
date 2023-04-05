@@ -25,8 +25,6 @@ function run() {
 // get the movies list
 let populateFormDropdown = movies => {
     for (const movie of movies) {
-        // if (counter <= 13) {
-        //     episodeList.push(episode)
         let newOption = document.createElement("option")
         newOption.textContent = movie.title
         newOption.value = movie.id
@@ -34,6 +32,7 @@ let populateFormDropdown = movies => {
     }
     
 }
+
 //detect any change in the droplist and update the description 
 let selectedMovie = null
 movieSelector.addEventListener("change", (event) => {
@@ -51,8 +50,17 @@ movieSelector.addEventListener("change", (event) => {
         
     } else {
         selectedMovie = null
+       
+        titleHeader.textContent = ""
+        releaseYearparagraph.textContent = ""
+        movieDescription.textContent = ""
+        
     }
 })
+
+let titleHeader = null
+let releaseYearparagraph = null
+let movieDescription = null
 
 //create the element and append it to the movie details section
 function updateMovieSelected(movie) {
@@ -61,10 +69,10 @@ function updateMovieSelected(movie) {
     const releaseYear = movie.release_date
     const description = movie.description
     
-    let titleHeader = document.createElement("h3")
-    let releaseYearparagraph = document.createElement("p")
-    let movieDescription = document.createElement("p")
-    
+    titleHeader = document.createElement("h3")
+    releaseYearparagraph = document.createElement("p")
+    movieDescription = document.createElement("p")
+  
     titleHeader.textContent = title
     releaseYearparagraph.textContent = releaseYear
     movieDescription.textContent = description
@@ -72,7 +80,6 @@ function updateMovieSelected(movie) {
     detailContainer.append(titleHeader)
     detailContainer.append(releaseYearparagraph)
     detailContainer.append(movieDescription)
-
     // clear the previous people list if the selected movie change from droplist
     if (peopleList.innerHTML !== "")  {
         peopleList.innerHTML = ""
