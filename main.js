@@ -19,11 +19,12 @@ const restReviews = document.getElementById("reset-reviews")
 const showPeopleButton = document.getElementById("show-people")
 
 function run() {
+
+    
  // Add code you want to run on page load here
  fetch(`https://resource-ghibli-api.onrender.com/films`)
 .then(response => response.json())
 .then(response => {
-    console.log(response)
     populateFormDropdown(response)
 })
 .catch(err => console.error(err));
@@ -41,11 +42,11 @@ let populateFormDropdown = movies => {
     
 }
 //detect any change in the drop menu and update the description 
-let selectedMovie = ""
+let selectedMovie = null
 movieSelector.addEventListener("change", (event) => {
     console.log(event.target.value)
     let movieId = event.target.value
-    if (movieId) {
+    if (movieId !== "") {
     // get the details of selected movie using the API
     fetch(`https://resource-ghibli-api.onrender.com/films/${movieId}`)
     .then(response => response.json())
@@ -60,24 +61,23 @@ movieSelector.addEventListener("change", (event) => {
 
 function updateMovieSelected(movie) {
     detailContainer.textContent = ""
-
     const title = movie.title
     const releaseYear = movie.release_date
     const description = movie.description
 
     let titleHeader = document.createElement("h3")
-    titleHeader.textContent = title
-    detailContainer.append(titleHeader)
-
     let releaseYearparagraph = document.createElement("p")
-    releaseYearparagraph.textContent = releaseYear
-    detailContainer.append(releaseYearparagraph)
-
     let movieDescription = document.createElement("p")
-    movieDescription.textContent = description
-    detailContainer.append(movieDescription)
 
+    titleHeader.textContent = title
+    releaseYearparagraph.textContent = releaseYear
+    movieDescription.textContent = description
+    
+    detailContainer.append(titleHeader)
+    detailContainer.append(releaseYearparagraph)
+    detailContainer.append(movieDescription)
 }
+
 form.addEventListener("submit", event => {
     event.preventDefault()
     if (selectedMovie !== ""){
@@ -85,11 +85,11 @@ form.addEventListener("submit", event => {
         newComment.innerHTML += `<strong>${selectedMovie.title}</strong> -- `
         newComment.innerHTML += commentInput.value
         commentList.append(newComment)
+        form.reset()
     } else {
         alert("Please select a movie first.")
     }
     
-    commentInput.value = ""
 })
 
 restReviews.addEventListener("click", event => {
@@ -104,12 +104,14 @@ showPeopleButton.addEventListener("click", event => {
 
     selectedMovie.people.forEach( element => {
         let list = document.createElement("li")
-        console.log(selectedMovie.people.name)
         fetch(`https://resource-ghibli-api.onrender.com${element}`)
         .then(response => response.json())
         .then(response => {
-            console.log(response.name)
-            list.innerText = response.name
+            if (response.name){
+                list.innerText = response.name
+            } else {
+                list.innerText = "No People"   
+            }
             peopleList.append(list)
     })
     .catch(err => console.error(err));
