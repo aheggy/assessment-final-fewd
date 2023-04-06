@@ -77,9 +77,9 @@ function updateMovieSelected(movie) {
     releaseYearparagraph.textContent = releaseYear
     movieDescription.textContent = description
     
-    detailContainer.append(titleHeader)
-    detailContainer.append(releaseYearparagraph)
-    detailContainer.append(movieDescription)
+    detailContainer.appendChild(titleHeader)
+    detailContainer.appendChild(releaseYearparagraph)
+    detailContainer.appendChild(movieDescription)
     // clear the previous people list if the selected movie change from droplist
     if (peopleList.innerHTML !== "")  {
         peopleList.innerHTML = ""
@@ -103,7 +103,7 @@ form.addEventListener("submit", event => {
         })
         // alert the user that movie should be selected before write a review
     } else {
-        alert("Please select a movie first.")
+        alert("Please select a movie first")
     }
      
 })
